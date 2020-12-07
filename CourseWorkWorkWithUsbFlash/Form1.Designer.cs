@@ -131,6 +131,7 @@ namespace CourseWorkWorkWithUsbFlash
             // 
             this.resultTextBox.BackColor = System.Drawing.SystemColors.ControlLight;
             this.resultTextBox.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.resultTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
             this.resultTextBox.Location = new System.Drawing.Point(10, 58);
             this.resultTextBox.Multiline = true;
             this.resultTextBox.Name = "resultTextBox";

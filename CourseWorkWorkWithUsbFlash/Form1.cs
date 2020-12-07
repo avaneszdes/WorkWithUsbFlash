@@ -100,7 +100,7 @@ namespace CourseWorkWorkWithUsbFlash
             }
         }
 
-        private void ReadFromFileButton_Click(object sender, EventArgs e)
+        private async void ReadFromFileButton_Click(object sender, EventArgs e)
         {
            
             if (IsDataCorrect())
@@ -112,14 +112,17 @@ namespace CourseWorkWorkWithUsbFlash
                     {
                         if (File.Exists(@comboBoxOfUsbFlashes.SelectedItem + fileNameTextBox.Text + expansion))
                         {
-                            stream = new StreamReader($"{comboBoxOfUsbFlashes.SelectedItem}{fileNameTextBox.Text}{expansion}");
-                            string line;
-                            while ((line = stream.ReadLine()) != null)
+
+                            using (StreamReader sr = new StreamReader($"{comboBoxOfUsbFlashes.SelectedItem}{fileNameTextBox.Text}{expansion}", System.Text.Encoding.Default))
                             {
-                                resultTextBox.Paste(stream.ReadLine());
+                                resultTextBox.Text = string.Empty;
+                                string line;
+                                while ((line = await sr.ReadLineAsync()) != null)
+                                {
+                                    resultTextBox.Text += line;
+                                }
+                                break;
                             }
-                            stream.Dispose();
-                            break;
                         }
                         resultTextBox.Text = "Файл с таким именем не найден";
                     }
